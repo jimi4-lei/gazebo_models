@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <model name="robocon_ground">
+    <static>true</static>
+
+    <!-- ============================================================ -->
+    <!-- 视觉部分：引用你的 DAE 模型，显示所有颜色和形状 -->
+    <!-- ============================================================ -->
+    <link name="visual_link">
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model://robocon_ground/meshes/Untitled.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+
+    <!-- ============================================================ -->
+    <!-- 碰撞体部分：每个物理实体用基本几何体表示 -->
+    <!-- ============================================================ -->
+
+    <!-- ========== 1. 红方半场（地面） ========== -->
+    <!-- 规则：11m × 5.5m，红方在 y>0，碰撞体厚 0.02m -->
+    <link name="collision_ground_red">
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>11 5.5 0.02</size>
+          </box>
+        </geometry>
+        <pose>0 2.75 -0.01 0 0 0</pose>
+      </collision>
+    </link>
+
+    <!-- ========== 2. 蓝方半场（地面） ========== -->
+    <link name="collision_ground_blue">
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>11 5.5 0.02</size>
+          </box>
+        </geometry>
+        <pose>0 -2.75 -0.01 0 0 0</pose>
+      </collision>
+    </link>
+
+    <!-- ========== 3. 中央隔板 ========== -->
+    <!-- 规则：长 11m，厚 50mm (0.05m)，高 80mm (0.08m) -->
+    <link name="collision_center_divider">
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>11 0.05 0.08</size>
+          </box>
+        </geometry>
+        <pose>0 0 0.04 0 0 0</pose>
+      </collision>
+    </link>
+
+    <!-- ========== 4. 前围栏（Y负方向） ========== -->
+    <!-- 规则：内高 80mm (0.08m)，厚 50mm (0.05m) -->
+    <link name="collision_wall_front">
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>11 0.05 0.08</size>
+          </box>
+        </geometry>
+        <pose>0 -5.5 0.04 0 0 0</pose>
+      </collision>
+    </link>
+
+    <!-- ========== 5. 后围栏（Y正方向） ========== -->
+    <link name="collision_wall_back">
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>11 0.05 0.08</size>
+          </box>
+        </geometry>
+        <pose>0 5.5 0.04 0 0 0</pose>
+      </collision>
+    </link>
+
+    <!-- ========== 6. 左围栏（X负方向） ========== -->
+    <link name="collision_wall_left">
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.05 11 0.08</size>
+          </box>
+        </geometry>
+        <pose>-5.5 0 0.04 0 0 0</pose>
+      </collision>
+    </link>
+
+    <!-- ========== 7. 右围栏（X正方向） ========== -->
+    <link name="collision_wall_right">
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.05 11 0.08</size>
+          </box>
+        </geometry>
+        <pose>5.5 0 0.04 0 0 0</pose>
+      </collision>
+    </link>
+
+    <!-- ========== 8. 五色石基座 ========== -->
+    <!-- 规则：高 500mm (0.5m)，直径 270mm (0.27m) -->
+    <link name="collision_stone_base">
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>0.135</radius>
+            <length>0.5</length>
+          </cylinder>
+        </geometry>
+        <pose>0 0 0.25 0 0 0</pose>
+      </collision>
+    </link>
+
+    <!-- ========== 9. L1层（高台） ========== -->
+    <!-- 规则：高出地面 600mm (0.6m)，尺寸 6m × 6m -->
+    <link name="collision_l1">
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>6 6 0.02</size>
+          </box>
+        </geometry>
+        <pose>0 0 0.61 0 0 0</pose>
+      </collision>
+    </link>
+
+    <!-- ========== 10. L2层（最高台） ========== -->
+    <!-- 规则：高出地面 900mm (0.9m)，尺寸 3m × 3m -->
+    <link name="collision_l2">
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>3 3 0.02</size>
+          </box>
+        </geometry>
+        <pose>0 0 0.91 0 0 0</pose>
+      </collision>
+    </link>
+
+  </model>
+</sdf>

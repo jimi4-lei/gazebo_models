@@ -1,0 +1,51 @@
+<mujoco model="robocon_ground">
+  <!-- Converted from Gazebo SDF model: robocon_ground -->
+  <!-- Visual mesh: meshes/Untitled.dae -> robocon_ground.obj (with .mtl) -->
+
+  <compiler meshdir="." angle="radian"/>
+
+  <asset>
+    <mesh name="robocon_visual" file="robocon_ground.obj"/>
+  </asset>
+
+  <worldbody>
+    <light pos="0 0 6" dir="0 0 -1" directional="true"/>
+
+    <body name="robocon_ground" pos="0 0 0">
+      <!-- 视觉：整个场地的彩色网格 -->
+      <geom name="visual_field" type="mesh" mesh="robocon_visual" contype="0" conaffinity="0" group="2"/>
+
+      <!-- ========== 碰撞体（与 Gazebo SDF 一致） ========== -->
+
+      <!-- 1. 红方半场地面 -->
+      <geom name="collision_ground_red" type="box" pos="0 2.75 -0.01" size="5.5 2.75 0.01"/>
+
+      <!-- 2. 蓝方半场地面 -->
+      <geom name="collision_ground_blue" type="box" pos="0 -2.75 -0.01" size="5.5 2.75 0.01"/>
+
+      <!-- 3. 中央隔板 11 x 0.05 x 0.08 -->
+      <geom name="collision_center_divider" type="box" pos="0 0 0.04" size="5.5 0.025 0.04"/>
+
+      <!-- 4. 前围栏 (Y-) -->
+      <geom name="collision_wall_front" type="box" pos="0 -5.5 0.04" size="5.5 0.025 0.04"/>
+
+      <!-- 5. 后围栏 (Y+) -->
+      <geom name="collision_wall_back" type="box" pos="0 5.5 0.04" size="5.5 0.025 0.04"/>
+
+      <!-- 6. 左围栏 (X-) -->
+      <geom name="collision_wall_left" type="box" pos="-5.5 0 0.04" size="0.025 5.5 0.04"/>
+
+      <!-- 7. 右围栏 (X+) -->
+      <geom name="collision_wall_right" type="box" pos="5.5 0 0.04" size="0.025 5.5 0.04"/>
+
+      <!-- 8. 五色石基座 圆柱 r=0.135, h=0.5 -->
+      <geom name="collision_stone_base" type="cylinder" pos="0 0 0.25" size="0.135 0.25"/>
+
+      <!-- 9. L1 层高台 6 x 6, 顶面高 0.6 -->
+      <geom name="collision_l1" type="box" pos="0 0 0.301" size="3 3 0.301"/>
+
+      <!-- 10. L2 层高台 3 x 3, 顶面高 0.9 -->
+      <geom name="collision_l2" type="box" pos="0 0 0.7515" size="1.5 1.5 0.1495"/>
+    </body>
+  </worldbody>
+</mujoco>

@@ -1,0 +1,331 @@
+<mujoco model="dog robocon scene">
+<!-- Dog 在 ROBOCON 场地上跑 — 由 Gazebo robocon_ground 转换的地形 -->
+<compiler angle="radian" meshdir="meshes/"/>
+<size njmax="500" nconmax="100"/>
+<option gravity="0 0 -9.806" iterations="100" solver="Newton" timestep="0.005" integrator="implicitfast"/>
+
+<default>
+  <!-- 3 维点接触避免脚掌在台阶棱边产生过强扭转/滚动约束 -->
+  <geom contype="1" conaffinity="1" condim="3" friction="0.6 0.005 0.0001" margin="0.001" group="0"/>
+  <light castshadow="false" diffuse="1 1 1"/>
+  <joint damping="0.01" armature="0.01" frictionloss="0.2"/>
+  <camera fovy="60"/>
+</default>
+
+<statistic center="0 0 0.5" extent="6.0"/>
+<visual>
+<headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/>
+<rgba haze="0.15 0.25 0.35 1" com="0.502 1.0 0 0.5" contactforce="0.98 0.4 0.4 0.7" contactpoint="1.0 1.0 0.6 0.4"/>
+<global azimuth="-130" elevation="-20"/>
+<scale com="0.2" forcewidth="0.035" contactwidth="0.10" contactheight="0.04"/>
+</visual>
+<asset>
+<texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+
+<!-- ROBOCON 场地彩色网格 (按材质拆分, MuJoCo 不支持 MTL/顶点色) -->
+<mesh name="robocon_000" file="robocon_000.obj"/>
+    <mesh name="robocon_001" file="robocon_001.obj"/>
+    <mesh name="robocon_002" file="robocon_002.obj"/>
+    <mesh name="robocon_003" file="robocon_003.obj"/>
+    <mesh name="robocon_004" file="robocon_004.obj"/>
+    <mesh name="robocon_005" file="robocon_005.obj"/>
+    <mesh name="robocon_006" file="robocon_006.obj"/>
+    <mesh name="robocon_007" file="robocon_007.obj"/>
+    <mesh name="robocon_008" file="robocon_008.obj"/>
+    <mesh name="robocon_009" file="robocon_009.obj"/>
+    <mesh name="robocon_010" file="robocon_010.obj"/>
+    <mesh name="robocon_011" file="robocon_011.obj"/>
+    <mesh name="robocon_012" file="robocon_012.obj"/>
+    <mesh name="robocon_013" file="robocon_013.obj"/>
+    <mesh name="robocon_014" file="robocon_014.obj"/>
+    <mesh name="robocon_015" file="robocon_015.obj"/>
+    <mesh name="robocon_016" file="robocon_016.obj"/>
+    <mesh name="robocon_017" file="robocon_017.obj"/>
+    <mesh name="robocon_018" file="robocon_018.obj"/>
+    <mesh name="robocon_019" file="robocon_019.obj"/>
+    <mesh name="robocon_020" file="robocon_020.obj"/>
+    <mesh name="robocon_021" file="robocon_021.obj"/>
+    <mesh name="robocon_022" file="robocon_022.obj"/>
+    <mesh name="robocon_023" file="robocon_023.obj"/>
+    <mesh name="robocon_024" file="robocon_024.obj"/>
+    <mesh name="robocon_025" file="robocon_025.obj"/>
+    <mesh name="robocon_026" file="robocon_026.obj"/>
+    <mesh name="robocon_027" file="robocon_027.obj"/>
+    <mesh name="robocon_028" file="robocon_028.obj"/>
+
+<!-- dog meshes -->
+<mesh name="base"     file="base.STL"/>
+<mesh name="ODIN1"    file="ODIN1.STL"/>
+<mesh name="FL_hip"   file="FL_hip.STL"/>
+<mesh name="FL_thigh" file="FL_thigh.STL"/>
+<mesh name="FL_calf"  file="FL_calf.STL"/>
+<mesh name="FL_foot"  file="FL_foot.STL"/>
+<mesh name="FR_hip"   file="FR_hip.STL"/>
+<mesh name="FR_thigh" file="FR_thigh.STL"/>
+<mesh name="FR_calf"  file="FR_calf.STL"/>
+<mesh name="FR_foot"  file="FR_foot.STL"/>
+<mesh name="RR_hip"   file="RR_hip.STL"/>
+<mesh name="RR_thigh" file="RR_thigh.STL"/>
+<mesh name="RR_calf"  file="RR_calf.STL"/>
+<mesh name="RR_foot"  file="RR_foot.STL"/>
+<mesh name="RL_hip"   file="RL_hip.STL"/>
+<mesh name="RL_thigh" file="RL_thigh.STL"/>
+<mesh name="RL_calf"  file="RL_calf.STL"/>
+<mesh name="RL_foot"  file="RR_foot.STL"/>
+</asset>
+<worldbody>
+<light pos="0 0 8" dir="0 0 -1" directional="true" />
+<camera name="track" mode="trackcom" pos="-3 -1.3 1.6" xyaxes="1 0 0 0 0.707 0.707"/>
+
+<!-- ================= ROBOCON 场地 ================= -->
+<body name="robocon_ground" pos="0 0 0">
+  <!-- 视觉：整个场地的彩色网格（红蓝半场、起点等），不参与碰撞 -->
+  <!-- 单一封闭凸网格：渲染网格同时作为精确碰撞体 -->
+  <geom name="robocon_000_v" type="mesh" mesh="robocon_000" rgba="0.14 0.05 0.05 1" contype="1" conaffinity="1" group="2"/>
+  <geom name="robocon_001_v" type="mesh" mesh="robocon_001" rgba="0.17 0.04 0.04 1" contype="1" conaffinity="1" group="2"/>
+  <geom name="robocon_002_v" type="mesh" mesh="robocon_002" rgba="0.8 0 0 1" contype="0" conaffinity="0" group="2"/>
+  <geom name="robocon_003_v" type="mesh" mesh="robocon_003" rgba="0 0 0.8 1" contype="0" conaffinity="0" group="2"/>
+  <geom name="robocon_004_v" type="mesh" mesh="robocon_004" rgba="0.11 0 0 1" contype="0" conaffinity="0" group="2"/>
+  <geom name="robocon_005_v" type="mesh" mesh="robocon_005" rgba="0.8 0.8 0.8 1" contype="0" conaffinity="0" group="2"/>
+  <geom name="robocon_006_v" type="mesh" mesh="robocon_006" rgba="0.14 0 0 1" contype="0" conaffinity="0" group="2"/>
+  <geom name="robocon_007_v" type="mesh" mesh="robocon_007" rgba="0.12 0 0 1" contype="0" conaffinity="0" group="2"/>
+  <geom name="robocon_008_v" type="mesh" mesh="robocon_008" rgba="0 0.17 0 1" contype="0" conaffinity="0" group="2"/>
+  <!-- 两侧斜坡、阶梯和高台小障碍都是独立封闭凸体 -->
+  <geom name="robocon_009_v" type="mesh" mesh="robocon_009" rgba="0.8 0.07 0.08 1" contype="1" conaffinity="1" group="2"/>
+  <geom name="robocon_010_v" type="mesh" mesh="robocon_010" rgba="0.8 0.14 0.15 1" contype="1" conaffinity="1" group="2"/>
+  <geom name="robocon_011_v" type="mesh" mesh="robocon_011" rgba="0.8 0.14 0.17 1" contype="1" conaffinity="1" group="2"/>
+  <geom name="robocon_012_v" type="mesh" mesh="robocon_012" rgba="0.8 0.16 0.18 1" contype="1" conaffinity="1" group="2"/>
+  <geom name="robocon_013_v" type="mesh" mesh="robocon_013" rgba="0.8 0.15 0.18 1" contype="1" conaffinity="1" group="2"/>
+  <geom name="robocon_014_v" type="mesh" mesh="robocon_014" rgba="0.09 0.31 0.8 1" contype="1" conaffinity="1" group="2"/>
+  <geom name="robocon_015_v" type="mesh" mesh="robocon_015" rgba="0.1 0.58 0.8 1" contype="1" conaffinity="1" group="2"/>
+  <geom name="robocon_016_v" type="mesh" mesh="robocon_016" rgba="0.08 0.51 0.8 1" contype="1" conaffinity="1" group="2"/>
+  <geom name="robocon_017_v" type="mesh" mesh="robocon_017" rgba="0.11 0.45 0.8 1" contype="1" conaffinity="1" group="2"/>
+  <geom name="robocon_018_v" type="mesh" mesh="robocon_018" rgba="0.11 0.44 0.8 1" contype="1" conaffinity="1" group="2"/>
+  <geom name="robocon_019_v" type="mesh" mesh="robocon_019" rgba="0.8 0.18 0.16 1" contype="1" conaffinity="1" group="2"/>
+  <geom name="robocon_020_v" type="mesh" mesh="robocon_020" rgba="0.18 0.6 0.8 1" contype="1" conaffinity="1" group="2"/>
+  <geom name="robocon_021_v" type="mesh" mesh="robocon_021" rgba="0.8 0.4 0.32 1" contype="0" conaffinity="0" group="2"/>
+  <geom name="robocon_022_v" type="mesh" mesh="robocon_022" rgba="0.34 0.65 0.8 1" contype="0" conaffinity="0" group="2"/>
+  <geom name="robocon_023_v" type="mesh" mesh="robocon_023" rgba="0.8 0.72 0.33 1" contype="0" conaffinity="0" group="2"/>
+  <geom name="robocon_024_v" type="mesh" mesh="robocon_024" rgba="0.8 0.18 0.19 1" contype="0" conaffinity="0" group="2"/>
+  <geom name="robocon_025_v" type="mesh" mesh="robocon_025" rgba="0.17 0.63 0.8 1" contype="0" conaffinity="0" group="2"/>
+  <geom name="robocon_026_v" type="mesh" mesh="robocon_026" rgba="0.01 0.01 0.8 1" contype="0" conaffinity="0" group="2"/>
+  <geom name="robocon_027_v" type="mesh" mesh="robocon_027" rgba="0.14 0.02 0.02 1" contype="0" conaffinity="0" group="2"/>
+  <geom name="robocon_028_v" type="mesh" mesh="robocon_028" rgba="0.13 0 0 1" contype="0" conaffinity="0" group="2"/>
+
+  <!-- 1. 红方半场：视觉网格中 y>0，11(x) x 5.5(y) -->
+  <geom name="robocon_ground_red" type="box" pos="0 2.75 -0.01" size="5.5 2.75 0.01" rgba="0.8 0.8 0.8 0" group="3"/>
+
+  <!-- 2. 蓝方半场：视觉网格中 y<0，11(x) x 5.5(y) -->
+  <geom name="robocon_ground_blue" type="box" pos="0 -2.75 -0.01" size="5.5 2.75 0.01" rgba="0.8 0.8 0.8 0" group="3"/>
+
+  <!-- 3. 中央隔板 11 x 0.05 x 0.08 -->
+  <geom name="robocon_center_divider" type="box" pos="0 0 0.04" size="5.5 0.025 0.04" rgba="0.8 0.8 0.8 0" group="3"/>
+
+  <!-- 4. 前围栏 (Y-) -->
+  <geom name="robocon_wall_front" type="box" pos="0 -5.5 0.04" size="5.5 0.025 0.04" rgba="0.8 0.8 0.8 0" group="3"/>
+
+  <!-- 5. 后围栏 (Y+) -->
+  <geom name="robocon_wall_back" type="box" pos="0 5.5 0.04" size="5.5 0.025 0.04" rgba="0.8 0.8 0.8 0" group="3"/>
+
+  <!-- 6. 左围栏 (X-) -->
+  <geom name="robocon_wall_left" type="box" pos="-5.5 0 0.04" size="0.025 5.5 0.04" rgba="0.8 0.8 0.8 0" group="3"/>
+
+  <!-- 7. 右围栏 (X+) -->
+  <geom name="robocon_wall_right" type="box" pos="5.5 0 0.04" size="0.025 5.5 0.04" rgba="0.8 0.8 0.8 0" group="3"/>
+
+  <!-- 8. 五色石基座 圆柱 r=0.135, h=0.5 -->
+  <geom name="robocon_stone_base" type="cylinder" pos="0 0 0.25" size="0.135 0.25" rgba="0.8 0.8 0.8 0" group="3"/>
+
+  <!-- 9. L1 层高台 6 x 6，实体碰撞从地面到视觉顶面 z=0.602 -->
+  <geom name="robocon_l1" type="box" pos="0 0 0.301" size="3 3 0.301" rgba="0.8 0.8 0.8 0" group="3"/>
+
+  <!-- 10. L2 层高台 3 x 3，实体碰撞从 L1 到视觉顶面 z=0.901 -->
+  <geom name="robocon_l2" type="box" pos="0 0 0.7515" size="1.5 1.5 0.1495" rgba="0.8 0.8 0.8 0" group="3"/>
+
+  <!-- 红蓝棋子阵列：按视觉网格的每个独立方块生成碰撞体 -->
+  <geom name="robocon_detail_002_00" type="box" pos="-3.8 -0.5 0.13" size="0.1 0.05 0.1" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_detail_002_01" type="box" pos="-3.8 -0.05 0.13" size="0.1 0.05 0.1" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_detail_002_02" type="box" pos="-3.8 0.4 0.13" size="0.1 0.05 0.1" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_detail_002_03" type="box" pos="-4 0.175 0.13" size="0.1 0.05 0.1" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_detail_002_04" type="box" pos="-4 -0.275 0.13" size="0.1 0.05 0.1" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_detail_002_05" type="box" pos="-4.2 0.4 0.13" size="0.1 0.05 0.1" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_detail_002_06" type="box" pos="-4.2 -0.5 0.13" size="0.1 0.05 0.1" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_detail_002_07" type="box" pos="-4.4 0.175 0.13" size="0.1 0.05 0.1" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_detail_002_08" type="box" pos="-4.4 -0.275 0.13" size="0.1 0.05 0.1" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_detail_002_09" type="box" pos="-4.6 0.4 0.13" size="0.1 0.05 0.1" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_detail_002_10" type="box" pos="-4.6 -0.05 0.13" size="0.1 0.05 0.1" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_detail_002_11" type="box" pos="-4.6 -0.5 0.13" size="0.1 0.05 0.1" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_detail_003_00" type="box" pos="-3.8 -0.4 0.13" size="0.1 0.05 0.1" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_detail_003_01" type="box" pos="-3.8 0.05 0.13" size="0.1 0.05 0.1" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_detail_003_02" type="box" pos="-3.8 0.5 0.13" size="0.1 0.05 0.1" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_detail_003_03" type="box" pos="-4 0.275 0.13" size="0.1 0.05 0.1" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_detail_003_04" type="box" pos="-4 -0.175 0.13" size="0.1 0.05 0.1" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_detail_003_05" type="box" pos="-4.2 0.5 0.13" size="0.1 0.05 0.1" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_detail_003_06" type="box" pos="-4.2 -0.4 0.13" size="0.1 0.05 0.1" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_detail_003_07" type="box" pos="-4.4 0.275 0.13" size="0.1 0.05 0.1" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_detail_003_08" type="box" pos="-4.4 -0.175 0.13" size="0.1 0.05 0.1" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_detail_003_09" type="box" pos="-4.6 0.5 0.13" size="0.1 0.05 0.1" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_detail_003_10" type="box" pos="-4.6 0.05 0.13" size="0.1 0.05 0.1" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_detail_003_11" type="box" pos="-4.6 -0.4 0.13" size="0.1 0.05 0.1" rgba="0 0 0 0" group="3"/>
+
+  <!-- L1 围边：匹配网格中的开口，不挡住斜坡/阶梯入口 -->
+  <geom name="robocon_l1_rail_left" type="box" pos="-3 0 0.625" size="0.025 3 0.025" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_l1_rail_right" type="box" pos="3 0 0.625" size="0.025 3 0.025" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_l1_rail_north_a" type="box" pos="1.1 3 0.625" size="1.9 0.025 0.025" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_l1_rail_north_b" type="box" pos="-2.4 3 0.625" size="0.6 0.025 0.025" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_l1_rail_south_a" type="box" pos="1.1 -3 0.625" size="1.9 0.025 0.025" rgba="0 0 0 0" group="3"/>
+  <geom name="robocon_l1_rail_south_b" type="box" pos="-2.4 -3 0.625" size="0.6 0.025 0.025" rgba="0 0 0 0" group="3"/>
+</body>
+
+<!-- ============ Dog Robot (出生在红方半场，机身朝向 +X) ============ -->
+<body name="trunk" pos="-4.0 2.0 0.45" quat="1 0 0 0">
+  <inertial pos="0.0063754 0 0" quat="1 0 0 0" mass="4.74" diaginertia="0.018108 0.039024 0.048926"/>
+  <joint type="free"/>
+  <geom type="mesh" mesh="base" contype="0" conaffinity="0" group="1" rgba="0.10196 0.10196 0.10196 1"/>
+  <geom size="0.1531 0.04675 0.052" type="box" rgba="0.10196 0.10196 0.10196 0"/>
+  <geom type="mesh" mesh="ODIN1" pos="0.21725 0 0.1165" contype="0" conaffinity="0" group="1" rgba="1 1 1 1"/>
+  <site name="imu" pos="0 0 0"/>
+
+  <!-- FL Leg -->
+  <body name="FL_hip" pos="0.2145 0.05 0">
+    <inertial pos="-0.010697 -0.0033174 0" quat="0.483303 0.483303 0.516157 0.516157" mass="0.33292" diaginertia="0.000342408 0.00025417 0.000178192"/>
+    <joint name="FL_hip_joint" pos="0 0 0" axis="-1 0 0" range="-1.05 1.05" actuatorfrcrange="-17 17"/>
+    <geom type="mesh" mesh="FL_hip" contype="0" conaffinity="0" group="1" rgba="0.79216 0.81961 0.93333 1"/>
+    <geom size="0.04 0.02" pos="0 0.045 0" quat="0.707105 0.707108 0 0" type="cylinder" rgba="0.79216 0.81961 0.93333 0"/>
+    <body name="FL_thigh" pos="0 0.088 0">
+      <inertial pos="-0.0069171 -0.014196 -0.040905" quat="0.937237 -0.0612753 -0.0854854 -0.332451" mass="1.5467" diaginertia="0.00673267 0.0061914 0.00123923"/>
+      <joint name="FL_thigh_joint" pos="0 0 0" axis="0 -1 0" range="-1.57 3.49" actuatorfrcrange="-17 17"/>
+      <geom type="mesh" mesh="FL_thigh" contype="0" conaffinity="0" group="1" rgba="0.79216 0.81961 0.93333 1"/>
+      <geom size="0.075 0.01225 0.017" pos="0 0 -0.075" quat="0.707105 0 0.707108 0" type="box" rgba="0.79216 0.81961 0.93333 0"/>
+      <body name="FL_calf" pos="0 0 -0.22">
+        <inertial pos="0.011153 4.09347e-10 -0.144935" quat="0.706789 0.0212082 0.0212082 0.706789" mass="0.1266" diaginertia="0.00082574 0.00081761 1.7692e-05"/>
+        <joint name="FL_calf_joint" pos="0 0 0" axis="0 1 0" range="-2.72 -1" actuatorfrcrange="-34 34"/>
+        <geom type="mesh" mesh="FL_calf" contype="0" conaffinity="0" group="1" rgba="0.79216 0.81961 0.93333 1"/>
+        <geom name="FL_calf_col" type="capsule" fromto="0 0 -0.015 0.001 0 -0.205" size="0.014" rgba="0.79216 0.81961 0.93333 0"/>
+        <geom type="mesh" mesh="FL_foot" pos="0.001 0 -0.22349" contype="0" conaffinity="0" group="1" rgba="0.69804 0.69804 0.69804 1"/>
+        <geom name="FL_foot_col" type="sphere" size="0.024" pos="0 0 -0.22849" rgba="0.69804 0.69804 0.69804 0"/>
+      </body>
+    </body>
+  </body>
+
+  <!-- FR Leg -->
+  <body name="FR_hip" pos="0.2145 -0.05 0">
+    <inertial pos="-0.010697 0.0033174 0" quat="0.516157 0.516157 0.483303 0.483303" mass="0.33292" diaginertia="0.000342408 0.00025417 0.000178192"/>
+    <joint name="FR_hip_joint" pos="0 0 0" axis="-1 0 0" range="-1.05 1.05" actuatorfrcrange="-17 17"/>
+    <geom type="mesh" mesh="FR_hip" contype="0" conaffinity="0" group="1" rgba="0.79216 0.81961 0.93333 1"/>
+    <geom size="0.04 0.02" pos="0 -0.045 0" quat="0.707105 0.707108 0 0" type="cylinder" rgba="0.79216 0.81961 0.93333 0"/>
+    <body name="FR_thigh" pos="0 -0.088 0">
+      <inertial pos="-0.0069171 0.014196 -0.040905" quat="0.937237 0.0612753 -0.0854854 0.332451" mass="1.5467" diaginertia="0.00673267 0.0061914 0.00123923"/>
+      <joint name="FR_thigh_joint" pos="0 0 0" axis="0 1 0" range="-1.57 3.49" actuatorfrcrange="-17 17"/>
+      <geom type="mesh" mesh="FR_thigh" contype="0" conaffinity="0" group="1" rgba="0.79216 0.81961 0.93333 1"/>
+      <geom size="0.075 0.01225 0.017" pos="0 0 -0.075" quat="0.707105 0 0.707108 0" type="box" rgba="0.79216 0.81961 0.93333 0"/>
+      <body name="FR_calf" pos="0 0 -0.22">
+        <inertial pos="0.011153 4.14072e-10 -0.144935" quat="0.706788 0.0212297 0.0212297 0.706788" mass="0.1266" diaginertia="0.00082574 0.00081755 1.7749e-05"/>
+        <joint name="FR_calf_joint" pos="0 0 0" axis="0 -1 0" range="1 2.72" actuatorfrcrange="-34 34"/>
+        <geom type="mesh" mesh="FR_calf" contype="0" conaffinity="0" group="1" rgba="0.79216 0.81961 0.93333 1"/>
+        <geom name="FR_calf_col" type="capsule" fromto="0 0 -0.015 0.001 0 -0.205" size="0.014" rgba="0.79216 0.81961 0.93333 0"/>
+        <geom type="mesh" mesh="FR_foot" pos="0.001 0 -0.22349" contype="0" conaffinity="0" group="1" rgba="0.69804 0.69804 0.69804 1"/>
+        <geom name="FR_foot_col" type="sphere" size="0.024" pos="0 0 -0.22849" rgba="0.69804 0.69804 0.69804 0"/>
+      </body>
+    </body>
+  </body>
+
+  <!-- RR Leg -->
+  <body name="RR_hip" pos="-0.2145 -0.05 0">
+    <inertial pos="0.010697 0.0033174 0" quat="0.483303 0.483303 0.516157 0.516157" mass="0.33292" diaginertia="0.000342408 0.00025417 0.000178192"/>
+    <joint name="RR_hip_joint" pos="0 0 0" axis="1 0 0" range="-1.05 1.05" actuatorfrcrange="-17 17"/>
+    <geom type="mesh" mesh="RR_hip" contype="0" conaffinity="0" group="1" rgba="0.79216 0.81961 0.93333 1"/>
+    <geom size="0.04 0.02" pos="0 -0.045 0" quat="0.707105 0.707108 0 0" type="cylinder" rgba="0.79216 0.81961 0.93333 0"/>
+    <body name="RR_thigh" pos="0 -0.088 0">
+      <inertial pos="-0.0069171 0.014196 -0.040905" quat="0.937237 0.0612753 -0.0854854 0.332451" mass="1.5467" diaginertia="0.00673267 0.0061914 0.00123923"/>
+      <joint name="RR_thigh_joint" pos="0 0 0" axis="0 1 0" range="-1.57 3.49" actuatorfrcrange="-17 17"/>
+      <geom type="mesh" mesh="RR_thigh" contype="0" conaffinity="0" group="1" rgba="0.79216 0.81961 0.93333 1"/>
+      <geom size="0.075 0.01225 0.017" pos="0 0 -0.075" quat="0.707105 0 0.707108 0" type="box" rgba="0.79216 0.81961 0.93333 0"/>
+      <body name="RR_calf" pos="0 0 -0.22">
+        <inertial pos="0.011153 4.14072e-10 -0.144935" quat="0.706788 0.0212297 0.0212297 0.706788" mass="0.1266" diaginertia="0.00082574 0.00081755 1.7749e-05"/>
+        <joint name="RR_calf_joint" pos="0 0 0" axis="0 -1 0" range="1 2.72" actuatorfrcrange="-34 34"/>
+        <geom type="mesh" mesh="RR_calf" contype="0" conaffinity="0" group="1" rgba="0.79216 0.81961 0.93333 1"/>
+        <geom name="RR_calf_col" type="capsule" fromto="0 0 -0.015 0.001 0 -0.205" size="0.014" rgba="0.79216 0.81961 0.93333 0"/>
+        <geom type="mesh" mesh="RR_foot" pos="0.001 0 -0.22349" contype="0" conaffinity="0" group="1" rgba="0.69804 0.69804 0.69804 1"/>
+        <geom name="RR_foot_col" type="sphere" size="0.024" pos="0 0 -0.22849" rgba="0.69804 0.69804 0.69804 0"/>
+      </body>
+    </body>
+  </body>
+
+  <!-- RL Leg -->
+  <body name="RL_hip" pos="-0.2145 0.05 0">
+    <inertial pos="0.010697 -0.0033174 0" quat="0.516157 0.516157 0.483303 0.483303" mass="0.33292" diaginertia="0.000342408 0.00025417 0.000178192"/>
+    <joint name="RL_hip_joint" pos="0 0 0" axis="1 0 0" range="-1.05 1.05" actuatorfrcrange="-17 17"/>
+    <geom type="mesh" mesh="RL_hip" contype="0" conaffinity="0" group="1" rgba="0.79216 0.81961 0.93333 1"/>
+    <geom size="0.04 0.02" pos="0 0.045 0" quat="0.707105 0.707108 0 0" type="cylinder" rgba="0.79216 0.81961 0.93333 0"/>
+    <body name="RL_thigh" pos="0 0.088 0">
+      <inertial pos="-0.0069171 -0.014196 -0.040905" quat="0.937237 -0.0612753 -0.0854854 -0.332451" mass="1.5467" diaginertia="0.00673267 0.0061914 0.00123923"/>
+      <joint name="RL_thigh_joint" pos="0 0 0" axis="0 -1 0" range="-1.57 3.49" actuatorfrcrange="-17 17"/>
+      <geom type="mesh" mesh="RL_thigh" contype="0" conaffinity="0" group="1" rgba="0.79216 0.81961 0.93333 1"/>
+      <geom size="0.075 0.01225 0.017" pos="0 0 -0.075" quat="0.707105 0 0.707108 0" type="box" rgba="0.79216 0.81961 0.93333 0"/>
+      <body name="RL_calf" pos="0 0 -0.22">
+        <inertial pos="0.0111521 4.07726e-10 -0.144935" quat="0.706788 0.021234 0.021234 0.706788" mass="0.1266" diaginertia="0.00082574 0.00081756 1.7750e-05"/>
+        <joint name="RL_calf_joint" pos="0 0 0" axis="0 1 0" range="-2.72 -1" actuatorfrcrange="-34 34"/>
+        <geom type="mesh" mesh="RL_calf" contype="0" conaffinity="0" group="1" rgba="0.79216 0.81961 0.93333 1"/>
+        <geom name="RL_calf_col" type="capsule" fromto="0 0 -0.015 0.001 0 -0.205" size="0.014" rgba="0.79216 0.81961 0.93333 0"/>
+        <geom type="mesh" mesh="RL_foot" pos="0.001 0 -0.22349" contype="0" conaffinity="0" group="1" rgba="0.69804 0.69804 0.69804 1"/>
+        <geom name="RL_foot_col" type="sphere" size="0.024" pos="0 0 -0.22849" rgba="0.69804 0.69804 0.69804 0"/>
+      </body>
+    </body>
+  </body>
+
+</body><!-- end trunk -->
+
+</worldbody>
+
+<!-- ============ Actuators ============ -->
+<actuator>
+  <motor name="FL_hip"   gear="1" joint="FL_hip_joint"   ctrlrange="-23.7 23.7"   ctrllimited="true"/>
+  <motor name="FL_thigh" gear="1" joint="FL_thigh_joint" ctrlrange="-23.7 23.7"   ctrllimited="true"/>
+  <motor name="FL_calf"  gear="1" joint="FL_calf_joint"  ctrlrange="-35.55 35.55" ctrllimited="true"/>
+  <motor name="FR_hip"   gear="1" joint="FR_hip_joint"   ctrlrange="-23.7 23.7"   ctrllimited="true"/>
+  <motor name="FR_thigh" gear="1" joint="FR_thigh_joint" ctrlrange="-23.7 23.7"   ctrllimited="true"/>
+  <motor name="FR_calf"  gear="1" joint="FR_calf_joint"  ctrlrange="-35.55 35.55" ctrllimited="true"/>
+  <motor name="RR_hip"   gear="1" joint="RR_hip_joint"   ctrlrange="-23.7 23.7"   ctrllimited="true"/>
+  <motor name="RR_thigh" gear="1" joint="RR_thigh_joint" ctrlrange="-23.7 23.7"   ctrllimited="true"/>
+  <motor name="RR_calf"  gear="1" joint="RR_calf_joint"  ctrlrange="-35.55 35.55" ctrllimited="true"/>
+  <motor name="RL_hip"   gear="1" joint="RL_hip_joint"   ctrlrange="-23.7 23.7"   ctrllimited="true"/>
+  <motor name="RL_thigh" gear="1" joint="RL_thigh_joint" ctrlrange="-23.7 23.7"   ctrllimited="true"/>
+  <motor name="RL_calf"  gear="1" joint="RL_calf_joint"  ctrlrange="-35.55 35.55" ctrllimited="true"/>
+</actuator>
+
+<!-- ============ Sensors ============ -->
+<sensor>
+  <jointpos name="FL_hip_pos"   joint="FL_hip_joint"/>
+  <jointpos name="FL_thigh_pos" joint="FL_thigh_joint"/>
+  <jointpos name="FL_calf_pos"  joint="FL_calf_joint"/>
+  <jointpos name="FR_hip_pos"   joint="FR_hip_joint"/>
+  <jointpos name="FR_thigh_pos" joint="FR_thigh_joint"/>
+  <jointpos name="FR_calf_pos"  joint="FR_calf_joint"/>
+  <jointpos name="RR_hip_pos"   joint="RR_hip_joint"/>
+  <jointpos name="RR_thigh_pos" joint="RR_thigh_joint"/>
+  <jointpos name="RR_calf_pos"  joint="RR_calf_joint"/>
+  <jointpos name="RL_hip_pos"   joint="RL_hip_joint"/>
+  <jointpos name="RL_thigh_pos" joint="RL_thigh_joint"/>
+  <jointpos name="RL_calf_pos"  joint="RL_calf_joint"/>
+
+  <jointvel name="FL_hip_vel"   joint="FL_hip_joint"/>
+  <jointvel name="FL_thigh_vel" joint="FL_thigh_joint"/>
+  <jointvel name="FL_calf_vel"  joint="FL_calf_joint"/>
+  <jointvel name="FR_hip_vel"   joint="FR_hip_joint"/>
+  <jointvel name="FR_thigh_vel" joint="FR_thigh_joint"/>
+  <jointvel name="FR_calf_vel"  joint="FR_calf_joint"/>
+  <jointvel name="RR_hip_vel"   joint="RR_hip_joint"/>
+  <jointvel name="RR_thigh_vel" joint="RR_thigh_joint"/>
+  <jointvel name="RR_calf_vel"  joint="RR_calf_joint"/>
+  <jointvel name="RL_hip_vel"   joint="RL_hip_joint"/>
+  <jointvel name="RL_thigh_vel" joint="RL_thigh_joint"/>
+  <jointvel name="RL_calf_vel"  joint="RL_calf_joint"/>
+
+  <accelerometer name="Body_Acc"  site="imu"/>
+  <gyro          name="Body_Gyro" site="imu"/>
+  <framepos      name="Body_Pos"  objtype="site" objname="imu"/>
+  <framequat     name="Body_Quat" objtype="site" objname="imu"/>
+</sensor>
+
+</mujoco>

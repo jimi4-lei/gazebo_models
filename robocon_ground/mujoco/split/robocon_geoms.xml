@@ -1,0 +1,62 @@
+<!-- ====== robocon 视觉 mesh (按材质拆分) ====== -->
+<!-- 放入 <asset> -->
+    <mesh name="robocon_000" file="robocon_000.obj"/>
+    <mesh name="robocon_001" file="robocon_001.obj"/>
+    <mesh name="robocon_002" file="robocon_002.obj"/>
+    <mesh name="robocon_003" file="robocon_003.obj"/>
+    <mesh name="robocon_004" file="robocon_004.obj"/>
+    <mesh name="robocon_005" file="robocon_005.obj"/>
+    <mesh name="robocon_006" file="robocon_006.obj"/>
+    <mesh name="robocon_007" file="robocon_007.obj"/>
+    <mesh name="robocon_008" file="robocon_008.obj"/>
+    <mesh name="robocon_009" file="robocon_009.obj"/>
+    <mesh name="robocon_010" file="robocon_010.obj"/>
+    <mesh name="robocon_011" file="robocon_011.obj"/>
+    <mesh name="robocon_012" file="robocon_012.obj"/>
+    <mesh name="robocon_013" file="robocon_013.obj"/>
+    <mesh name="robocon_014" file="robocon_014.obj"/>
+    <mesh name="robocon_015" file="robocon_015.obj"/>
+    <mesh name="robocon_016" file="robocon_016.obj"/>
+    <mesh name="robocon_017" file="robocon_017.obj"/>
+    <mesh name="robocon_018" file="robocon_018.obj"/>
+    <mesh name="robocon_019" file="robocon_019.obj"/>
+    <mesh name="robocon_020" file="robocon_020.obj"/>
+    <mesh name="robocon_021" file="robocon_021.obj"/>
+    <mesh name="robocon_022" file="robocon_022.obj"/>
+    <mesh name="robocon_023" file="robocon_023.obj"/>
+    <mesh name="robocon_024" file="robocon_024.obj"/>
+    <mesh name="robocon_025" file="robocon_025.obj"/>
+    <mesh name="robocon_026" file="robocon_026.obj"/>
+    <mesh name="robocon_027" file="robocon_027.obj"/>
+    <mesh name="robocon_028" file="robocon_028.obj"/>
+
+<!-- 放入 worldbody 的静态 body 内 -->
+      <geom name="robocon_000_v" type="mesh" mesh="robocon_000" rgba="0.14 0.05 0.05 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_001_v" type="mesh" mesh="robocon_001" rgba="0.17 0.04 0.04 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_002_v" type="mesh" mesh="robocon_002" rgba="0.8 0 0 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_003_v" type="mesh" mesh="robocon_003" rgba="0 0 0.8 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_004_v" type="mesh" mesh="robocon_004" rgba="0.11 0 0 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_005_v" type="mesh" mesh="robocon_005" rgba="0.8 0.8 0.8 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_006_v" type="mesh" mesh="robocon_006" rgba="0.14 0 0 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_007_v" type="mesh" mesh="robocon_007" rgba="0.12 0 0 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_008_v" type="mesh" mesh="robocon_008" rgba="0 0.17 0 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_009_v" type="mesh" mesh="robocon_009" rgba="0.8 0.07 0.08 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_010_v" type="mesh" mesh="robocon_010" rgba="0.8 0.14 0.15 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_011_v" type="mesh" mesh="robocon_011" rgba="0.8 0.14 0.17 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_012_v" type="mesh" mesh="robocon_012" rgba="0.8 0.16 0.18 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_013_v" type="mesh" mesh="robocon_013" rgba="0.8 0.15 0.18 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_014_v" type="mesh" mesh="robocon_014" rgba="0.09 0.31 0.8 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_015_v" type="mesh" mesh="robocon_015" rgba="0.1 0.58 0.8 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_016_v" type="mesh" mesh="robocon_016" rgba="0.08 0.51 0.8 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_017_v" type="mesh" mesh="robocon_017" rgba="0.11 0.45 0.8 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_018_v" type="mesh" mesh="robocon_018" rgba="0.11 0.44 0.8 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_019_v" type="mesh" mesh="robocon_019" rgba="0.8 0.18 0.16 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_020_v" type="mesh" mesh="robocon_020" rgba="0.18 0.6 0.8 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_021_v" type="mesh" mesh="robocon_021" rgba="0.8 0.4 0.32 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_022_v" type="mesh" mesh="robocon_022" rgba="0.34 0.65 0.8 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_023_v" type="mesh" mesh="robocon_023" rgba="0.8 0.72 0.33 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_024_v" type="mesh" mesh="robocon_024" rgba="0.8 0.18 0.19 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_025_v" type="mesh" mesh="robocon_025" rgba="0.17 0.63 0.8 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_026_v" type="mesh" mesh="robocon_026" rgba="0.01 0.01 0.8 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_027_v" type="mesh" mesh="robocon_027" rgba="0.14 0.02 0.02 1" contype="0" conaffinity="0" group="2"/>
+      <geom name="robocon_028_v" type="mesh" mesh="robocon_028" rgba="0.13 0 0 1" contype="0" conaffinity="0" group="2"/>
