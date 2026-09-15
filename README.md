@@ -69,7 +69,7 @@ gazebo ~/robocon_track.world
 
 ## 三、SLAM 建图与 Nav2 导航（ROS2 Humble）
 
-启动 Gazebo 场地后，按以下步骤操作：
+启动 Gazebo 场地后，按以下步骤操作（举个例子，，以典型的机器人TurtleBot3为例）：
 
 终端 1：启动 Gazebo 并加载场地
 
