@@ -14,29 +14,6 @@
 | ---- | ---- | ---- |
 | Gazebo Classic | SLAM 建图、Nav2 导航验证 | 支持 ROS2 工具链，方便与 slam_toolbox、Nav2 集成 |
 | MuJoCo | 足式机器人（Dog）运动策略验证 | 物理仿真精度高，适合强化学习策略测试 |
-```
-
-📁 目录结构
-.
-├── README.md
-├── run_gazebo.sh          # Gazebo 一键启动脚本
-├── robocon_track.world    # Gazebo 世界文件
-├── robocon_ground/        # Gazebo 场地模型
-│   ├── model.config
-│   ├── model.sdf
-│   └── meshes/
-│       └── Untitled.dae   # Blender 导出的场地模型
-├── play_robocon.py        # MuJoCo Dog 运行脚本
-├── dog_robocon.xml        # MuJoCo 场景（场地 + Dog）
-├── dog.yaml               # Dog 策略参数
-├── model_3400.onnx        # Dog 强化学习策略
-├── update_scene_visual.py # MuJoCo 场景视觉更新工具
-└── meshes/                # MuJoCo 所需的所有网格
-├── base.STL
-├── FL_hip.STL
-├── ...
-└── robocon_*.obj      # 拆分的场地彩色网格
-```
 
 ```
 
