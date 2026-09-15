@@ -1,4 +1,3 @@
-```
 # ROBOCON 2027 女娲补天 - 场地仿真环境
 这是第二十六届全国大学生机器人大赛 ROBOCON「女娲补天」竞技赛的场地仿真环境，包含 Gazebo Classic 和 MuJoCo 两套仿真平台，供 SLAM 建图、Nav2 导航验证、足式机器人（Dog）策略验证使用。
 
@@ -15,10 +14,9 @@
 | ---- | ---- | ---- |
 | Gazebo Classic | SLAM 建图、Nav2 导航验证 | 支持 ROS2 工具链，方便与 slam_toolbox、Nav2 集成 |
 | MuJoCo | 足式机器人（Dog）运动策略验证 | 物理仿真精度高，适合强化学习策略测试 |
-
-📁 目录结构
 ```
 
+📁 目录结构
 .
 ├── README.md
 ├── run_gazebo.sh          # Gazebo 一键启动脚本
@@ -38,6 +36,7 @@
 ├── FL_hip.STL
 ├── ...
 └── robocon_*.obj      # 拆分的场地彩色网格
+```
 
 ```
 
